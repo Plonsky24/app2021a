@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="./tailwind-dark.css" rel="stylesheet">
+    <script type="module">
+      import { createApp } from 'https://unpkg.com/petite-vue?module';
+
+      createApp({
+        dataFields:{
+          Name: {
+            label: "Full Name",
+            data: "",
+            dataType: "text",
+            get validate () {
+              return true;
+            }
+          },
+          StudentNo: {
+            label: "Student Number",
+            data: "",
+            dataType: "text",
+            get validate () {
+              return true;
+            }
+          },
+          Course: {
+            label: "Course",
+            data: "",
+            dataType: "selection",
+            options: ['BS Computer Engineering', 'BS Electrical Engineering', 'BS Electronics and Communications Engineering'],
+            get validate () {
+              return true;
+            }
+          },
+          Email: {
+            label: "Email Address",
+            data: "",
+            dataType: "text",
+            get validate () {
+              return true;
+            }
+          },
+          Contacts: {
+            label: "Contact Number",
+            data: "",
+            dataType: "text",
+            get validate () {
+              return true;
+            }
+          },
+          Facebook: {
+            label: "Facebook Link",
+            data: "",
+            dataType: "text",
+            get validate () {
+              return true;
+            }
+          },
+          Pronouns: {
+            label: "Pronouns",
+            data: "",
+            dataType: "text",
+            get validate () {
+              return true;
+            }
+          },
+        },
+        pageNo: 0,
+        pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns"],
+        status: 1,
+        ready (){
+          this.status = 0;
+        },
+        next (){
+          if (this.currfield.validate){
+            localStorage.dataFields = this.dataFields
+            this.pageNo++;
+          }
+        },
+        back (){
+          this.pageNo--;
+        },
+        get onFirst (){
+          return (this.pageNo == 0)
+        },
+        get onLast (){
+          return (this.pageNo == this.pages.length-1)
+        },
+        get currfield (){
+          return this.dataFields[this.pages[this.pageNo]];
+        },
+        active (field){
+          if (field == this.currfield){
+            return "bg-yellow-100";
+          } else {
+            return "bg-gray-100";
+          }
+        },
+        debug (){
+          console.log(this.dataFields)
+        },
+        mounted (){
+          if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
+          if (localStorage.status) {this.status = localStorage.status}
+          if (localStorage.dataFields) {this.dataFields = localStorage.dataFields}
+        }
+      }).mount()
+    </script>
+  </head>
+
+  <body class="bg-gray-100" v-scope>
+    <div class="h-screen">
+      <div id="loading" v-if="status" class="grid place-self-center place-items-center h-screen">
+        <div><h1 class="text-4xl">WELCOME</h1></div>
+        <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-bold tracking-widest">START</button></div>
+      </div>
+
+      <div id="form" class="grid grid-cols-5 grid-rows-3 gap-2 min-h-full" v-if="!status">
+        <div class="row-span-3 col-span-2 bg-red-100 flex flex-col">
+          <div v-for="field in dataFields" v-text="field.label" v-bind:class="active(field)" class="m-2 p-2 flex-1 text-center"></div>
+        </div>
+
+        <div class="row-span-2 col-span-3 bg-blue-100">
+          <h1>{{ currfield.label }}</h1>
+          <input type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'">
+
+          <select v-model="currfield.data" v-if="currfield.dataType == 'selection'">
+            <template v-for="option in currfield.options">
+              <option v-text="option"></option>
+            </template>
+          </select>
+        </div>
+
+        <div class="bg-white-100 flex flex-row">
+          <div><button @click="back()" v-show="!onFirst" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">BACK</button></div>
+          <div><button @click="next()" v-show="!onLast" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">NEXT</button></div>
+          <div><button @click="debug()" v-show="onLast" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">SUBMIT</button></div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
