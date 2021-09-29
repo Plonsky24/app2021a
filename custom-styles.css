@@ -3,8 +3,16 @@
   font-family: ErasBoldITC;
   src: url(./static/ErasBoldITC.ttf);
 }
+@font-face {
+  font-family: ErasDemiITC;
+  src: url(./static/ErasDemiITC.ttf);
+}
 .font-eras-bold {
   font-family: ErasBoldITC, sans-serif;
+}
+
+.font-eras-demi {
+  font-family: ErasDemiITC, sans-serif;
   letter-spacing: 0.04em;
   font-stretch: 143%;
 }
@@ -20,6 +28,7 @@
   z-index: -1;
   height: 100vh;
   width: 100vw;
+  left: -10%;
 }
 
 .menu-item {
@@ -33,13 +42,17 @@
 }
 
 .nav-button {
+  box-sizing: border-box;
+  padding: 0 1rem;
+}
+.nav-button button {
   background-color: #e52521;
   color: #e4e4e4;
   font-size: 2rem;
   transition: all 0.2s ease-in-out;
   clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
-.nav-button p {
+.nav-button button p {
   margin: 0 1rem;
 }
 
@@ -54,6 +67,7 @@ input {
   background: none;
   border: none;
   border-bottom: 2px solid black;
+  margin: auto;
 }
 input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
