@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <link href="./tailwind-dark.css" rel="stylesheet">
+    <link href="./custom-styles.css" rel="stylesheet">
     <script type="module">
       import { createApp } from 'https://unpkg.com/petite-vue?module';
 
@@ -93,9 +94,9 @@
         },
         active (field){
           if (field == this.currfield){
-            return "bg-yellow-100";
+            return "menu-item-active";
           } else {
-            return "bg-gray-100";
+            return "";
           }
         },
         debug (){
@@ -118,8 +119,8 @@
       </div>
 
       <div id="form" class="grid grid-cols-5 grid-rows-3 gap-2 min-h-full" v-if="!status">
-        <div class="row-span-3 col-span-2 bg-red-100 flex flex-col">
-          <div v-for="field in dataFields" v-text="field.label" v-bind:class="active(field)" class="m-2 p-2 flex-1 text-center"></div>
+        <div class="row-span-3 col-span-2 bg-red-100 flex flex-col justify-evenly items-center">
+          <div v-for="field in dataFields" v-text="field.label" v-bind:class="active(field)" class="font-bold menu-item flex-0 w-4/5"></div>
         </div>
 
         <div class="row-span-2 col-span-3 bg-blue-100">

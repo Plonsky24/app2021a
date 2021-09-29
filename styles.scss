@@ -1,0 +1,28 @@
+@font-face {
+  font-family: ErasBoldITC;
+  src: url(./static/ErasBoldITC.ttf);
+}
+
+.font-bold {
+  font-family: ErasBoldITC, sans-serif;
+  letter-spacing: 0.04em;
+  font-stretch: 143%;
+}
+
+#form {
+  background-image:url(./static/2a.png);
+}
+
+.menu-item {
+  clip-path:polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+  background-color: #e4e4e4;
+  font-size:2rem;
+  transition: all .2s ease-in-out;
+  text-indent:10%;
+}
+
+.menu-item-active {
+  background-color: #FBD000;
+  transform:scale(1.2, 1.2);
+
+}
