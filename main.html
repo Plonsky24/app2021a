@@ -8,6 +8,7 @@
       import { createApp } from 'https://unpkg.com/petite-vue?module';
 
       createApp({
+        el: '#body',
         dataFields:{
           Name: {
             label: "Full Name",
@@ -81,15 +82,18 @@
         status: 0,
         ready (){
           this.status++;
+          localStorage.status = this.status;
         },
         next (){
           if (this.currfield.validate){
-            localStorage.dataFields = this.dataFields
+            localStorage.dataFields = this.dataFields;
             this.pageNo++;
+            localStorage.pageNo = this.pageNo;
           }
         },
         back (){
           this.pageNo--;
+          localStorage.pageNo = this.pageNo;
         },
         get onFirst (){
           return (this.pageNo == 0)
@@ -120,17 +124,18 @@
         debug (){
           console.log(this.dataFields)
         },
-        mounted (){
+        mounted () {
+          console.log('MOUNTED');
           if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
           if (localStorage.status) {this.status = localStorage.status}
           if (localStorage.dataFields) {this.dataFields = localStorage.dataFields}
         }
-      }).mount()
+      }).mount('#body')
     </script>
   </head>
 
   <body class="bg-gray-100" v-scope>
-    <div class="h-screen">
+    <div class="h-screen" id="body">
       <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
         <div><h1 class="text-4xl">WELCOME</h1></div>
         <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-bold tracking-widest">START</button></div>
