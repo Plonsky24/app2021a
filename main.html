@@ -68,11 +68,20 @@
             }
           },
         },
+        CharData: {
+          label: "Character",
+          selected: 0,
+          optionLabel: ["A", "B", "C", "D", "E", "F"],
+          optionFlavor: ["A flavor", "B flavor", "C flavor", "D flavor", "E flavor", "F flavor"],
+          get flavor() {
+              return this.optionFlavor[this.selected]
+          }
+        },
         pageNo: 0,
         pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns"],
-        status: 1,
+        status: 0,
         ready (){
-          this.status = 0;
+          this.status++;
         },
         next (){
           if (this.currfield.validate){
@@ -99,6 +108,16 @@
             return "";
           }
         },
+        selectCharacter (index) {
+          this.CharData.selected = index;
+        },
+        activeCharacter (index) {
+          if (index == this.CharData.selected){
+            return "bg-yellow-100";
+          } else {
+            return "bg-gray-100";
+          }
+        },
         debug (){
           console.log(this.dataFields)
         },
@@ -114,11 +133,24 @@
   <body class="bg-gray-100" v-scope>
   <div id="bg-dummy"></div>
     <div class="h-screen">
-      <div id="loading" v-if="status" class="grid place-self-center place-items-center h-screen">
+      <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
         <div><h1 class="text-4xl">WELCOME</h1></div>
         <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-demi tracking-widest">START</button></div>
       </div>
-      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="!status">
+
+      <div id="character" v-if="status == 1" class="grid grid-cols-5 grid-rows-4 gap-2 min-h-full">
+        <div class="row-span-2 row-start-2 col-span-2 bg-red-100 grid grid-cols-2 grid-rows-3 gap-2">
+          <div v-for="(characterLabel, index) in CharData.optionLabel" v-text="characterLabel" @click="selectCharacter(index)" v-bind:class="activeCharacter(index)" class="m-2 p-2 flex-1 text-center"></div>
+        </div>
+        <div class="row-span-2 row-start-2 col-start-3 col-span-3 bg-blue-100">
+          {{ CharData.flavor }}
+        </div>
+        <div class="row-span-3 col-span-1 col-start-3 row-start-4 bg-white-100 flex flex-row">
+          <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-bold tracking-widest">SELECT</button></div>
+        </div>
+      </div>
+
+      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="status == 2">
         <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
           <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi  menu-item flex-0 w-3/5">
             <p v-text="field.label"></p>
