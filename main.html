@@ -120,14 +120,13 @@
       </div>
       <div id="form" class="grid grid-cols-5 grid-rows-3 gap-2 min-h-full" v-if="!status">
         <div class="row-span-3 col-span-2 flex flex-col justify-evenly items-center">
-          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-bold menu-item flex-0 w-4/5">
+          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-bold  menu-item flex-0 w-4/5">
             <p v-text="field.label"></p>
           </div>
         </div>
 
-        <div class="row-span-2 col-span-3">
-          <h1>{{ currfield.label }}</h1>
-          <input type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'">
+        <div class="row-span-2 col-span-3 place-self-center">
+          <input placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'"></input>
 
           <select v-model="currfield.data" v-if="currfield.dataType == 'selection'">
             <template v-for="option in currfield.options">
@@ -137,9 +136,9 @@
         </div>
 
         <div class="bg-white-100 flex flex-row">
-          <div><button @click="back()" v-show="!onFirst" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">BACK</button></div>
-          <div><button @click="next()" v-show="!onLast" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">NEXT</button></div>
-          <div><button @click="debug()" v-show="onLast" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">SUBMIT</button></div>
+          <div><button @click="back()" v-show="!onFirst" class="font-eras-bold  nav-button"><p>BACK</p></button></div>
+          <div><button @click="next()" v-show="!onLast" class="font-eras-bold  nav-button"><p>NEXT</p></button></div>
+          <div><button @click="debug()" v-show="onLast" class="font-eras-bold  nav-button"><p>SUBMIT</p></button></div>
         </div>
       </div>
     </div>

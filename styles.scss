@@ -3,7 +3,9 @@
   src: url(./static/ErasBoldITC.ttf);
 }
 
-.font-bold {
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
+
+.font-eras-bold {
   font-family: ErasBoldITC, sans-serif;
   letter-spacing: 0.04em;
   font-stretch: 143%;
@@ -23,17 +25,47 @@
 }
 
 .menu-item {
-  clip-path:polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
   background-color: #e4e4e4;
   font-size:2rem;
   transition: all .2s ease-in-out;
+  clip-path:polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
   p {
     margin: 0 10%;
+  }
+}
+
+.nav-button {
+  background-color: #e52521;
+  color:#e4e4e4;
+  font-size:2rem;
+  transition: all .2s ease-in-out;
+  clip-path:polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  p {
+    margin: 0 1rem;
   }
 }
 
 .menu-item-active {
   background-color: #FBD000;
   transform:scale(1.2, 1.2);
+}
 
+input {
+  font-family: Quicksand, sans-serif;
+  font-size: 2rem;
+  background: none;
+  border:none;
+  border-bottom: 2px solid black;
+  &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+  }
+
+  &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+  }
+
+  &::-ms-input-placeholder { /* Microsoft Edge */
+    color: black;
+  }
 }
