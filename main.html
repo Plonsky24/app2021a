@@ -112,18 +112,20 @@
   </head>
 
   <body class="bg-gray-100" v-scope>
+  <div id="bg-dummy"></div>
     <div class="h-screen">
       <div id="loading" v-if="status" class="grid place-self-center place-items-center h-screen">
         <div><h1 class="text-4xl">WELCOME</h1></div>
         <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-bold tracking-widest">START</button></div>
       </div>
-
       <div id="form" class="grid grid-cols-5 grid-rows-3 gap-2 min-h-full" v-if="!status">
-        <div class="row-span-3 col-span-2 bg-red-100 flex flex-col justify-evenly items-center">
-          <div v-for="field in dataFields" v-text="field.label" v-bind:class="active(field)" class="font-bold menu-item flex-0 w-4/5"></div>
+        <div class="row-span-3 col-span-2 flex flex-col justify-evenly items-center">
+          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-bold menu-item flex-0 w-4/5">
+            <p v-text="field.label"></p>
+          </div>
         </div>
 
-        <div class="row-span-2 col-span-3 bg-blue-100">
+        <div class="row-span-2 col-span-3">
           <h1>{{ currfield.label }}</h1>
           <input type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'">
 

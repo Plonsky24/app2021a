@@ -9,7 +9,16 @@
 }
 
 #form {
+  position: relative;
+  background: transparent;
+}
+
+#bg-dummy {
+  position: absolute;
   background-image: url(./static/2a.png);
+  z-index: -1;
+  height: 100vh;
+  width: 100vw;
 }
 
 .menu-item {
@@ -17,7 +26,9 @@
   background-color: #e4e4e4;
   font-size: 2rem;
   transition: all 0.2s ease-in-out;
-  text-indent: 10%;
+}
+.menu-item p {
+  margin: 0 1rem;
 }
 
 .menu-item-active {
