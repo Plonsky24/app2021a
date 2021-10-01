@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <link href="./tailwind-dark.css" rel="stylesheet">
-    <link href="./custom-styles.css" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet">
     <script type="module">
       import { createApp } from 'https://unpkg.com/petite-vue?module';
 
@@ -52,7 +52,7 @@
             dataType: "text",
             placeholder: "username@website.com",
             get validate () {
-              if (/\w+@\w+.\w+/.test(this.data)){
+              if (/\w+@\w+\.\w+/.test(this.data)){
                 return true;
               } else { return false; }
             }
@@ -113,8 +113,7 @@
           else {this.status = 1; localStorage.status = 1}
         },
         readyNew (){
-          /* console.log("YAY!") */
-          if (localStorage.pageNo || localStorage.dataFields || localStorage.status) {localStorage.clear}
+          localStorage.clear();
           this.ready();
         },
         ready (){
@@ -167,18 +166,19 @@
         debug (){
           console.log(this.dataFields)
         }
-      }).mount('#body')
+      }).mount()
     </script>
   </head>
 
   <body class="bg-gray-100" v-scope>
-    <div id="bg-dummy"></div>
-    <div class="h-screen" id="body">
+    <div id="bg-dummy-welcome" v-if="status == 0"></div>
+    <div id="bg-dummy-main" v-if="status != 0"></div>
+    <div class="h-screen">
       <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
-        <div><h1 class="text-4xl">WELCOME</h1></div>
+        <div class="items-center"><img src="./static/welcem.png" id="img-welcome" class="mx-auto"></img></div>
         <div class="flex">
-          <div><button @click="readyNew()" class="m-2 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">START NEW</button></div>
-          <div><button @click="readyContinue()" v-if="localStorage.dataFields" class="m-2 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">CONTINUE</button></div>
+          <div class="start-button"><button @click="readyNew()" class="font-eras-bold"><p>START NEW</p></button></div>
+          <div class="start-button"><button @click="readyContinue()" v-if="localStorage.dataFields" class="font-eras-bold"></p>CONTINUE<p></button></div>
         </div>
       </div>
 
@@ -202,9 +202,9 @@
         </div>
 
         <div class="col-span-3 row-span-2 col-start-5 row-start-2 place-self-center">
-          <input placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'"></input>
+          <input @change="dataUpdate" placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
 
-          <select v-model="currfield.data" v-if="currfield.dataType == 'selection'">
+          <select @change="dataUpdate" v-model="currfield.data" v-if="currfield.dataType == 'selection'">
             <template v-for="option in currfield.options">
               <option v-text="option"></option>
             </template>
