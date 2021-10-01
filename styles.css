@@ -37,7 +37,7 @@
   background-position: center;
   background-size: cover;
   z-index: -2;
-  height: 100vh;
+  height: 80vh;
   width: 100vw;
   pointer-events: none;
 }
@@ -130,5 +130,3 @@ input#menu-input::-ms-input-placeholder {
 #menu-input-label {
   font-family: Quicksand, sans-serif;
 }
-
-/*# sourceMappingURL=styles.css.map */
