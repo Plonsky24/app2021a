@@ -24,6 +24,7 @@
 
 #bg-dummy-welcome {
   position: absolute;
+  background-image: url(./static/1a.png);
   background-position: center;
   background-size: cover;
   z-index: -2;
@@ -33,7 +34,6 @@
 
 #bg-dummy-main {
   position: absolute;
-  background-image: url(./static/2a.png);
   background-position: center;
   background-size: cover;
   z-index: -2;
@@ -42,7 +42,7 @@
   pointer-events: none;
 }
 
-#bg-icon-dummy {
+#icon-dummy-main {
   position: absolute;
   z-index: -3;
   right: 10%;
