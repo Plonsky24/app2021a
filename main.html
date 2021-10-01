@@ -9,21 +9,28 @@
       import { createApp } from 'https://unpkg.com/petite-vue?module';
 
       createApp({
+        el: '#body',
         dataFields:{
           Name: {
             label: "Full Name",
             data: "",
             dataType: "text",
+            placeholder: "Jose Rizal",
             get validate () {
-              return true;
+              if (/\S+\s\S+/.test(this.data)){
+                return true;
+              } else { return false; }
             }
           },
           StudentNo: {
             label: "Student Number",
             data: "",
             dataType: "text",
+            placeholder: "20XX-YYYYY",
             get validate () {
-              return true;
+              if (/20\d{2}-\d{5}/.test(this.data)){
+                return true;
+              } else { return false; }
             }
           },
           Course: {
@@ -32,56 +39,100 @@
             dataType: "selection",
             options: ['BS Computer Engineering', 'BS Electrical Engineering', 'BS Electronics and Communications Engineering'],
             get validate () {
-              return true;
+              if (this.options.includes(this.data)){
+                return true;
+              } else {
+                return false;
+              }
             }
           },
           Email: {
             label: "Email Address",
             data: "",
             dataType: "text",
+            placeholder: "username@website.com",
             get validate () {
-              return true;
+              if (/\w+@\w+.\w+/.test(this.data)){
+                return true;
+              } else { return false; }
             }
           },
           Contacts: {
             label: "Contact Number",
             data: "",
             dataType: "text",
+            placeholder: "+63XXXYYYZZZZ",
             get validate () {
-              return true;
+              if (/\+63\d{10}/.test(this.data)){
+                return true;
+              } else { return false; }
             }
           },
           Facebook: {
             label: "Facebook Link",
             data: "",
             dataType: "text",
+            placeholder: "facebook.com/username/",
             get validate () {
-              return true;
+              if (this.data != ""){
+                return true;
+              } else { return false; }
             }
           },
           Pronouns: {
             label: "Pronouns",
             data: "",
             dataType: "text",
+            placeholder: "He/Him, They/Their, She/Her, etc.",
             get validate () {
-              return true;
+              if (this.data != ""){
+                return true;
+              } else { return false; }
             }
           },
         },
+        /* I could make this into a datafield, but I also could not */
+        CharData: {
+          label: "Character",
+          selected: 0,
+          optionLabel: ["A", "B", "C", "D", "E", "F"],
+          optionFlavor: ["A flavor", "B flavor", "C flavor", "D flavor", "E flavor", "F flavor"],
+          get flavor() {
+              return this.optionFlavor[this.selected]
+          }
+        },
         pageNo: 0,
+        validateFlag: 0,
         pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns"],
-        status: 1,
+        status: 0,
+        readyContinue (){
+          /* console.log("YAY!") */
+          if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
+          if (localStorage.dataFields) {this.dataFields = JSON.parse(localStorage.dataFields)}
+          if (localStorage.status) {this.status = localStorage.status}
+          else {this.status = 1; localStorage.status = 1}
+        },
+        readyNew (){
+          /* console.log("YAY!") */
+          if (localStorage.pageNo || localStorage.dataFields || localStorage.status) {localStorage.clear}
+          this.ready();
+        },
         ready (){
-          this.status = 0;
+          this.status++;
+          localStorage.status = this.status;
         },
         next (){
           if (this.currfield.validate){
-            localStorage.dataFields = this.dataFields
             this.pageNo++;
+            localStorage.pageNo = this.pageNo;
+          } else {
+            this.validateFlag = 1;
+            alert('Validation Error')
           }
         },
         back (){
           this.pageNo--;
+          localStorage.pageNo = this.pageNo;
         },
         get onFirst (){
           return (this.pageNo == 0)
@@ -99,25 +150,50 @@
             return "";
           }
         },
+        selectCharacter (index) {
+          this.CharData.selected = index;
+        },
+        activeCharacter (index) {
+          if (index == this.CharData.selected){
+            return "bg-yellow-100";
+          } else {
+            return "bg-gray-100";
+          }
+        },
+        dataUpdate () {
+          /* This is awful */
+          localStorage.dataFields = JSON.stringify(this.dataFields);
+        },
         debug (){
           console.log(this.dataFields)
-        },
-        mounted (){
-          if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
-          if (localStorage.status) {this.status = localStorage.status}
-          if (localStorage.dataFields) {this.dataFields = localStorage.dataFields}
         }
-      }).mount()
+      }).mount('#body')
     </script>
   </head>
 
   <body class="bg-gray-100" v-scope>
-  <div id="bg-dummy"></div>
-    <div class="h-screen">
-      <div id="loading" v-if="status" class="grid place-self-center place-items-center h-screen">
+    <div id="bg-dummy"></div>
+    <div class="h-screen" id="body">
+      <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
         <div><h1 class="text-4xl">WELCOME</h1></div>
-        <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-demi tracking-widest">START</button></div>
+        <div class="flex">
+          <div><button @click="readyNew()" class="m-2 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">START NEW</button></div>
+          <div><button @click="readyContinue()" v-if="localStorage.dataFields" class="m-2 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">CONTINUE</button></div>
+        </div>
       </div>
+
+      <div id="character" v-if="status == 1" class="grid grid-cols-5 grid-rows-4 gap-2 min-h-full">
+        <div class="row-span-2 row-start-2 col-span-2 bg-red-100 grid grid-cols-2 grid-rows-3 gap-2">
+          <div v-for="(characterLabel, index) in CharData.optionLabel" v-text="characterLabel" @click="selectCharacter(index)" v-bind:class="activeCharacter(index)" class="m-2 p-2 flex-1 text-center"></div>
+        </div>
+        <div class="row-span-2 row-start-2 col-start-3 col-span-3 bg-blue-100">
+          {{ CharData.flavor }}
+        </div>
+        <div class="row-span-3 col-span-1 col-start-3 row-start-4 bg-white-100 flex flex-row">
+          <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-bold tracking-widest">SELECT</button></div>
+        </div>
+      </div>
+
       <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="!status">
         <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
           <div class="menu-item flex-0 w-3/5" v-for="field in dataFields" v-bind:class="active(field)">
