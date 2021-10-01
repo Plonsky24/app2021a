@@ -185,7 +185,7 @@
               }
             }
             else { url += field; }
-            if (i < 6) { url += '&'; } /* change to 7 after adding charselect */ 
+            if (i < 6) { url += '&'; } /* change to 7 after adding charselect */
             i++;
           }
 
@@ -210,15 +210,15 @@
     <img src="./static/2a.png" id="bg-dummy-main" v-if="status != 0"></img>
     <img src="./static/mario.png" id="icon-dummy-main" v-if="status != 0"></img>
     <div class="h-screen">
-      <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
+      <div id="loading" v-show="status == 0" class="grid place-self-center place-items-center h-screen">
         <div class="items-center"><img src="./static/welcem.png" id="img-welcome" class="mx-auto"></img></div>
         <div class="flex">
-          <div class="start-button"><button @click="readyNew()" class="font-eras-bold"><p>START NEW</p></button></div>
-          <div class="start-button"><button @click="readyContinue()" v-if="localStorage.dataFields" class="font-eras-bold"></p>CONTINUE<p></button></div>
+          <div class="start-button font-eras-bold"><button @click="readyNew()"><p>START NEW</p></button></div>
+          <div class="start-button font-eras-bold" v-show="localStorage.dataFields"><button @click="readyContinue()"><p>CONTINUE</p></button></div>
         </div>
       </div>
 
-      <div id="character" v-if="status == 1" class="grid grid-cols-5 grid-rows-4 gap-2 min-h-full">
+      <div id="character" v-show="status == 1" class="grid grid-cols-5 grid-rows-4 gap-2 min-h-full">
         <div class="row-span-2 row-start-2 col-span-2 bg-red-100 grid grid-cols-2 grid-rows-3 gap-2">
           <div v-for="(characterLabel, index) in CharData.optionLabel" v-text="characterLabel" @click="selectCharacter(index)" v-bind:class="activeCharacter(index)" class="m-2 p-2 flex-1 text-center"></div>
         </div>
@@ -226,11 +226,11 @@
           {{ CharData.flavor }}
         </div>
         <div class="row-span-3 col-span-1 col-start-3 row-start-4 bg-white-100 flex flex-row">
-          <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-bold tracking-widest">SELECT</button></div>
+          <div class="font-eras-bold nav-button"><button @click="ready()"><p>SELECT</p></button></div>
         </div>
       </div>
 
-      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="status == 2">
+      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-show="status == 2">
         <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
           <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi flex-0 w-3/5">
             <p v-text="field.label"></p>
@@ -238,9 +238,9 @@
         </div>
 
         <div class="col-span-3 row-span-2 col-start-5 row-start-2 place-self-center">
-          <input id="menu-input" @change="dataUpdate" placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
+          <input id="menu-input" @change="dataUpdate" placeholder="Insert answer here..." type="text" v-model="currfield.data" v-show="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
 
-          <select @change="dataUpdate" v-model="currfield.data" v-if="currfield.dataType == 'selection'">
+          <select @change="dataUpdate" v-model="currfield.data" v-show="currfield.dataType == 'selection'">
             <template v-for="option in currfield.options">
               <option v-text="option"></option>
             </template>
