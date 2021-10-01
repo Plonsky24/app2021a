@@ -42,6 +42,16 @@
   pointer-events: none;
 }
 
+#bg-dummy-char {
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+  z-index: -2;
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+}
+
 #icon-dummy-main {
   position: absolute;
   z-index: -3;
@@ -88,6 +98,7 @@
 .start-button {
   box-sizing: border-box;
   padding: 0 2rem;
+  filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
 }
 .start-button button {
   background-color: #FBD000;
@@ -129,4 +140,22 @@ input#menu-input::-ms-input-placeholder {
 
 #menu-input-label {
   font-family: Quicksand, sans-serif;
+}
+
+#choose-char-image {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  height: auto;
+  width: 50vw;
+}
+
+#character {
+  position: relative;
+}
+
+#character-picker img {
+  width: 80%;
+  height: auto;
+  margin: auto;
 }

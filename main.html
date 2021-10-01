@@ -94,7 +94,7 @@
         CharData: {
           label: "Character",
           selected: 0,
-          optionLabel: ["A", "B", "C", "D", "E", "F"],
+          optionLabel: ["mario", "luigi", "bowser", "peach", "daisy", "yoshi"],
           optionFlavor: ["A flavor", "B flavor", "C flavor", "D flavor", "E flavor", "F flavor"],
           get flavor() {
               return this.optionFlavor[this.selected]
@@ -155,7 +155,7 @@
           if (index == this.CharData.selected){
             return "bg-yellow-100";
           } else {
-            return "bg-gray-100";
+            return "";
           }
         },
         dataUpdate () {
@@ -185,7 +185,7 @@
               }
             }
             else { url += field; }
-            if (i < 6) { url += '&'; } /* change to 7 after adding charselect */ 
+            if (i < 6) { url += '&'; } /* change to 7 after adding charselect */
             i++;
           }
 
@@ -207,22 +207,30 @@
   </head>
   <body class="bg-gray-100" v-scope>
     <div id="bg-dummy-welcome" v-if="status == 0"></div>
-    <img src="./static/2a.png" id="bg-dummy-main" v-if="status != 0"></img>
-    <img src="./static/mario.png" id="icon-dummy-main" v-if="status != 0"></img>
+    <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
+    <img src="./static/2a.png" id="bg-dummy-main" v-if="status == 2"></img>
+    <img src="./static/mario.png" id="icon-dummy-main" v-if="status == 2"></img>
     <div class="h-screen">
       <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
         <div class="items-center"><img src="./static/welcem.png" id="img-welcome" class="mx-auto"></img></div>
-        <div class="flex">
+        <div class="flex justify-center">
           <div class="start-button"><button @click="readyNew()" class="font-eras-bold"><p>START NEW</p></button></div>
-          <div class="start-button"><button @click="readyContinue()" v-if="localStorage.dataFields" class="font-eras-bold"></p>CONTINUE<p></button></div>
+          <div class="start-button" v-if="localStorage.dataFields">
+            <button @click="readyContinue()" class="font-eras-bold">
+              <p>CONTINUE</p>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div id="character" v-if="status == 1" class="grid grid-cols-5 grid-rows-4 gap-2 min-h-full">
-        <div class="row-span-2 row-start-2 col-span-2 bg-red-100 grid grid-cols-2 grid-rows-3 gap-2">
-          <div v-for="(characterLabel, index) in CharData.optionLabel" v-text="characterLabel" @click="selectCharacter(index)" v-bind:class="activeCharacter(index)" class="m-2 p-2 flex-1 text-center"></div>
+      <div id="character" v-if="status == 1" class="grid grid-cols-5 grid-rows-7 gap-2 min-h-full">
+        <img id="choose-char-image" src="./static/chooseachar.png"></img>
+        <div class="row-span-6 row-start-2 col-span-2 bg-white bg-opacity-50 rounded-lg grid grid-cols-2 grid-rows-3 gap-2">
+          <div id="character-picker" v-for="(characterLabel, index) in CharData.optionLabel" @click="selectCharacter(index)" v-bind:class="activeCharacter(index)" class="p-2 ">
+            <img v-bind:src="'./static/characters/' + characterLabel + '.png'"></img>
+          </div>
         </div>
-        <div class="row-span-2 row-start-2 col-start-3 col-span-3 bg-blue-100">
+        <div class="row-span-2 row-start-3 col-start-3 col-span-3 bg-blue-100">
           {{ CharData.flavor }}
         </div>
         <div class="row-span-3 col-span-1 col-start-3 row-start-4 bg-white-100 flex flex-row">
