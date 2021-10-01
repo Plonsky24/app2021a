@@ -25,20 +25,23 @@
 #bg-dummy {
   position: absolute;
   background-image: url(./static/2a.png);
-  z-index: -1;
+  z-index: -2;
   height: 100vh;
   width: 100vw;
   left: -10%;
 }
 
 .menu-item {
+  filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
+}
+.menu-item p {
   background-color: #e4e4e4;
   font-size: 2rem;
   transition: all 0.2s ease-in-out;
+  display: block;
+  box-sizing: border-box;
+  padding: 0 10%;
   clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
-}
-.menu-item p {
-  margin: 0 10%;
 }
 
 .nav-button {
@@ -56,7 +59,7 @@
   margin: 0 1rem;
 }
 
-.menu-item-active {
+.menu-item-active p {
   background-color: #FBD000;
   transform: scale(1.2, 1.2);
 }
@@ -67,7 +70,6 @@ input {
   background: none;
   border: none;
   border-bottom: 2px solid black;
-  margin: auto;
 }
 input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
