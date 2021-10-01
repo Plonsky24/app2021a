@@ -60,9 +60,9 @@
             label: "Contact Number",
             data: "",
             dataType: "text",
-            placeholder: "+63XXXYYYZZZZ",
+            placeholder: "09XXYYYZZZZ",
             get validate () {
-              if (/\+63\d{10}/.test(this.data)){
+              if (/09\d{9}/.test(this.data)){
                 return true;
               } else { return false; }
             }
