@@ -222,10 +222,10 @@
         <div class="row-span-2 row-start-2 col-span-2 bg-red-100 grid grid-cols-2 grid-rows-3 gap-2">
           <div v-for="(characterLabel, index) in CharData.optionLabel" v-text="characterLabel" @click="selectCharacter(index)" v-bind:class="activeCharacter(index)" class="m-2 p-2 flex-1 text-center"></div>
         </div>
-        <div class="row-span-2 row-start-2 col-start-3 col-span-3 bg-blue-100">
+        <div class="row-span-2 row-start-2 col-start-3 col-span-3 bg-blue-100 place-self-center">
           {{ CharData.flavor }}
         </div>
-        <div class="row-span-3 col-span-1 col-start-3 row-start-4 bg-white-100 flex flex-row">
+        <div class="row-span-3 col-span-1 col-start-5 row-start-4 bg-white-100 flex flex-row-reverse items-end p-8">
           <div class="font-eras-bold nav-button"><button @click="ready()"><p>SELECT</p></button></div>
         </div>
       </div>

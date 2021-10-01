@@ -76,31 +76,31 @@
 
 .nav-button {
   box-sizing: border-box;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   filter:drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
   button{
     background-color: #e52521;
     color:#e4e4e4;
-    font-size:3rem;
+    font-size:2.5rem;
     transition: all .2s ease-in-out;
     clip-path:polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
     p {
-      margin: 0 2rem;
+      margin: 0 1.5rem;
     }
   }
 }
 
 .start-button {
   box-sizing: border-box;
-  padding: 0 2rem;
+  padding: 0 2.5rem;
   button{
     background-color: #FBD000;
     color:#e4e4e4;
-    font-size: 3rem;
+    font-size: 3.5rem;
     transition: all .2s ease-in-out;
     clip-path:polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
     p {
-      margin: 0 2rem;
+      margin: 0 2.5rem;
     }
   }
 }
