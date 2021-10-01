@@ -200,7 +200,7 @@
         </div>
 
         <div class="col-span-3 row-span-2 col-start-5 row-start-2 place-self-center">
-          <input @change="dataUpdate" placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
+          <input id="menu-input" @change="dataUpdate" placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
 
           <select @change="dataUpdate" v-model="currfield.data" v-if="currfield.dataType == 'selection'">
             <template v-for="option in currfield.options">
