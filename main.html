@@ -104,12 +104,17 @@
         validateFlag: 0,
         pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns"],
         status: 0,
-        readyStart (){
+        readyContinue (){
           /* console.log("YAY!") */
           if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
           if (localStorage.dataFields) {this.dataFields = JSON.parse(localStorage.dataFields)}
           if (localStorage.status) {this.status = localStorage.status}
           else {this.status = 1; localStorage.status = 1}
+        },
+        readyNew (){
+          /* console.log("YAY!") */
+          if (localStorage.pageNo || localStorage.dataFields || localStorage.status) {localStorage.clear}
+          this.ready();
         },
         ready (){
           this.status++;
@@ -169,7 +174,10 @@
     <div class="h-screen" id="body">
       <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
         <div><h1 class="text-4xl">WELCOME</h1></div>
-        <div><button @click="readyStart()" class="p-2 bg-red-200 text-gray-100 font-bold tracking-widest">START</button></div>
+        <div class="flex">
+          <div><button @click="readyNew()" class="m-2 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">START NEW</button></div>
+          <div><button @click="readyContinue()" v-if="localStorage.dataFields" class="m-2 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">CONTINUE</button></div>
+        </div>
       </div>
 
       <div id="character" v-if="status == 1" class="grid grid-cols-5 grid-rows-4 gap-2 min-h-full">
