@@ -194,10 +194,10 @@
         </div>
       </div>
 
-      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="!status">
+      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="status == 2">
         <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
-          <div class="menu-item flex-0 w-3/5" v-for="field in dataFields" v-bind:class="active(field)">
-              <p class="font-eras-demi" v-text="field.label"></p>
+          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi  menu-item flex-0 w-3/5">
+            <p v-text="field.label"></p>
           </div>
         </div>
 
