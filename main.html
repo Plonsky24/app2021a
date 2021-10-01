@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link href="./styles.css" rel="stylesheet">
     <link href="./tailwind-dark.css" rel="stylesheet">
     <script type="module">
       import { createApp } from 'https://unpkg.com/petite-vue?module';
-
       createApp({
         el: '#body',
         dataFields:{
@@ -51,7 +51,7 @@
             dataType: "text",
             placeholder: "username@website.com",
             get validate () {
-              if (/\w+@\w+.\w+/.test(this.data)){
+              if (/\w+@\w+\.\w+/.test(this.data)){
                 return true;
               } else { return false; }
             }
@@ -60,9 +60,9 @@
             label: "Contact Number",
             data: "",
             dataType: "text",
-            placeholder: "+63XXXYYYZZZZ",
+            placeholder: "09XXYYYZZZZ",
             get validate () {
-              if (/\+63\d{10}/.test(this.data)){
+              if (/09\d{9}/.test(this.data)){
                 return true;
               } else { return false; }
             }
@@ -112,8 +112,7 @@
           else {this.status = 1; localStorage.status = 1}
         },
         readyNew (){
-          /* console.log("YAY!") */
-          if (localStorage.pageNo || localStorage.dataFields || localStorage.status) {localStorage.clear}
+          localStorage.clear();
           this.ready();
         },
         ready (){
@@ -144,9 +143,9 @@
         },
         active (field){
           if (field == this.currfield){
-            return "bg-yellow-100";
+            return "menu-item menu-item-active";
           } else {
-            return "bg-gray-100";
+            return "menu-item";
           }
         },
         selectCharacter (index) {
@@ -166,17 +165,18 @@
         debug (){
           console.log(this.dataFields)
         }
-      }).mount('#body')
+      }).mount()
     </script>
   </head>
-
   <body class="bg-gray-100" v-scope>
-    <div class="h-screen" id="body">
+    <div id="bg-dummy-welcome" v-if="status == 0"></div>
+    <div id="bg-dummy-main" v-if="status != 0"></div>
+    <div class="h-screen">
       <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
-        <div><h1 class="text-4xl">WELCOME</h1></div>
+        <div class="items-center"><img src="./static/welcem.png" id="img-welcome" class="mx-auto"></img></div>
         <div class="flex">
-          <div><button @click="readyNew()" class="m-2 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">START NEW</button></div>
-          <div><button @click="readyContinue()" v-if="localStorage.dataFields" class="m-2 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">CONTINUE</button></div>
+          <div class="start-button"><button @click="readyNew()" class="font-eras-bold"><p>START NEW</p></button></div>
+          <div class="start-button"><button @click="readyContinue()" v-if="localStorage.dataFields" class="font-eras-bold"></p>CONTINUE<p></button></div>
         </div>
       </div>
 
@@ -192,14 +192,15 @@
         </div>
       </div>
 
-      <div id="form" class="grid grid-cols-5 grid-rows-3 gap-2 min-h-full" v-if="status == 2">
-        <div class="row-span-3 col-span-2 bg-red-100 flex flex-col">
-          <div v-for="field in dataFields" v-text="field.label" v-bind:class="active(field)" class="m-2 p-2 flex-1 text-center"></div>
+      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="status == 2">
+        <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
+          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi flex-0 w-3/5">
+            <p v-text="field.label"></p>
+          </div>
         </div>
 
-        <div class="row-span-2 col-span-3 bg-blue-100">
-          <h1>{{ currfield.label }}</h1>
-          <input @change="dataUpdate" type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder">
+        <div class="col-span-3 row-span-2 col-start-5 row-start-2 place-self-center">
+          <input id="menu-input" @change="dataUpdate" placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
 
           <select @change="dataUpdate" v-model="currfield.data" v-if="currfield.dataType == 'selection'">
             <template v-for="option in currfield.options">
@@ -208,13 +209,12 @@
           </select>
         </div>
 
-        <div class="bg-white-100 flex flex-row">
-          <div><button @click="back()" v-show="!onFirst" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">BACK</button></div>
-          <div><button @click="next()" v-show="!onLast" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">NEXT</button></div>
-          <div><button @click="debug()" v-show="onLast" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">SUBMIT</button></div>
+        <div class="bg-white-100 flex flex-row-reverse col-span-2 row-start-5 col-start-5 p-8 items-end">
+          <div class="font-eras-bold nav-button"><button @click="debug()" v-show="onLast"><p>SUBMIT</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="next()" v-show="!onLast"><p>NEXT</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="back()" v-show="!onFirst"><p>BACK</p></button></div>
         </div>
       </div>
     </div>
-
   </body>
 </html>
