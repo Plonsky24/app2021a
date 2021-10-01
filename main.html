@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link href="./tailwind-dark.css" rel="stylesheet">
     <link href="./custom-styles.css" rel="stylesheet">
+    <link href="./tailwind-dark.css" rel="stylesheet">
     <script type="module">
       import { createApp } from 'https://unpkg.com/petite-vue?module';
-
       createApp({
         el: '#body',
         dataFields:{
@@ -145,9 +144,9 @@
         },
         active (field){
           if (field == this.currfield){
-            return "menu-item-active";
+            return "menu-item menu-item-active";
           } else {
-            return "";
+            return "menu-item";
           }
         },
         selectCharacter (index) {
@@ -170,7 +169,6 @@
       }).mount('#body')
     </script>
   </head>
-
   <body class="bg-gray-100" v-scope>
     <div id="bg-dummy"></div>
     <div class="h-screen" id="body">
@@ -196,15 +194,15 @@
 
       <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="status == 2">
         <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
-          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi  menu-item flex-0 w-3/5">
+          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi flex-0 w-3/5">
             <p v-text="field.label"></p>
           </div>
         </div>
 
         <div class="col-span-3 row-span-2 col-start-5 row-start-2 place-self-center">
-          <input placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'"></input>
-
-          <select v-model="currfield.data" v-if="currfield.dataType == 'selection'">
+          <h1 id="menu-input-label">{{ currfield.label }}</h1>
+          <input id="menu-input" @change="dataUpdate" type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder">
+          <select @change="dataUpdate" v-model="currfield.data" v-if="currfield.dataType == 'selection'">
             <template v-for="option in currfield.options">
               <option v-text="option"></option>
             </template>
@@ -212,14 +210,11 @@
         </div>
 
         <div class="bg-white-100 flex flex-row-reverse col-span-2 row-start-5 col-start-5 p-8 items-end">
-          <div class="nav-button"><button @click="debug()" v-show="onLast" class="font-eras-bold"><p>SUBMIT</p></button></div>
-          <div class="nav-button"><button @click="next()" v-show="!onLast" class="font-eras-bold"><p>NEXT</p></button></div>
-          <div class="nav-button"><button @click="back()" v-show="!onFirst" class="font-eras-bold"><p>BACK</p></button></div>
-
-
+          <div><button @click="debug()" v-show="onLast" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">SUBMIT</button></div>
+          <div><button @click="next()" v-show="!onLast" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">NEXT</button></div>
+          <div><button @click="back()" v-show="!onFirst" class="m-4 p-2 bg-red-200 text-gray-100 font-bold tracking-widest">BACK</button></div>
         </div>
       </div>
     </div>
-
   </body>
 </html>
