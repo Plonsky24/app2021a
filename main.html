@@ -164,7 +164,44 @@
           localStorage.dataFields = JSON.stringify(this.dataFields);
         },
         debug (){
-          console.log(this.dataFields)
+          // sample url
+          https://docs.google.com/forms/d/e/1FAIpQLSdimV_BMwHWE-cKeX2fb12D4B0zerxjprYBW_5jRUxd_YRWFQ/formResponse?entry.1971848531=ASDASDAS&entry.2095210633=ASDASD&entry.1023986858=ASDSADASD&entry.2106804884=ASDASDA&entry.15147818=AFHD&entry.1362062595=DFHDF&entry.581553320=DFHDFH&entry.2083507613=DFHFDHD
+          var url = "https://docs.google.com/forms/d/e/1FAIpQLSdimV_BMwHWE-cKeX2fb12D4B0zerxjprYBW_5jRUxd_YRWFQ/formResponse?"
+
+          // 'entry.2083507613': characterSelect
+
+          var names = ['entry.1971848531', 'entry.2095210633', 'entry.1023986858', 'entry.2106804884', 'entry.15147818', 'entry.1362062595', 'entry.581553320']
+          var i = 0;
+
+          for (let key in this.dataFields) {
+            url += names[i];
+            url += '='
+
+            var field = this.dataFields[key].data;
+            var arr = field.split(' ');
+            if (arr.length > 1) {
+              for (var k = 0; k < arr.length; k++) {
+                url+= arr[k];
+                if (k != arr.length-1) { url += '+'; }
+              }
+            }
+            else { url += field; }
+            if (i < 6) { url += '&'; } /* change to 7 after adding charselect */ 
+            i++;
+          }
+
+          console.log(url);
+
+          // console.log(data);
+
+          fetch(url, {
+            method: 'GET',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+          })
+          .catch((err)=> console.error(err))
         }
       }).mount('#body')
     </script>
