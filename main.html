@@ -15,7 +15,9 @@
             data: "",
             dataType: "text",
             get validate () {
-              return true;
+              if (/\S+\s\S+/.test(this.data)){
+                return true;
+              } else { return false; }
             }
           },
           StudentNo: {
@@ -23,7 +25,9 @@
             data: "",
             dataType: "text",
             get validate () {
-              return true;
+              if (/20\d{2}-\d{5}/.test(this.data)){
+                return true;
+              } else { return false; }
             }
           },
           Course: {
@@ -32,7 +36,11 @@
             dataType: "selection",
             options: ['BS Computer Engineering', 'BS Electrical Engineering', 'BS Electronics and Communications Engineering'],
             get validate () {
-              return true;
+              if (this.options.includes(this.data)){
+                return true;
+              } else {
+                return false;
+              }
             }
           },
           Email: {
@@ -40,7 +48,9 @@
             data: "",
             dataType: "text",
             get validate () {
-              return true;
+              if (/\w+@\w+.\w+/.test(this.data)){
+                return true;
+              } else { return false; }
             }
           },
           Contacts: {
@@ -48,7 +58,9 @@
             data: "",
             dataType: "text",
             get validate () {
-              return true;
+              if (/+63\d{10}/.test(this.data)){
+                return true;
+              } else { return false; }
             }
           },
           Facebook: {
@@ -56,7 +68,9 @@
             data: "",
             dataType: "text",
             get validate () {
-              return true;
+              if (this.data != ""){
+                return true;
+              } else { return false; }
             }
           },
           Pronouns: {
@@ -64,7 +78,9 @@
             data: "",
             dataType: "text",
             get validate () {
-              return true;
+              if (this.data != ""){
+                return true;
+              } else { return false; }
             }
           },
         },
@@ -78,6 +94,7 @@
           }
         },
         pageNo: 0,
+        validateFlag: 0,
         pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns"],
         status: 0,
         readyStart (){
@@ -95,6 +112,9 @@
           if (this.currfield.validate){
             this.pageNo++;
             localStorage.pageNo = this.pageNo;
+          } else {
+            this.validateFlag = 1;
+            alert('Validation Error')
           }
         },
         back (){
