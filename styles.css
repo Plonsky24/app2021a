@@ -40,6 +40,7 @@
   z-index: -2;
   height: 100vh;
   width: 100vw;
+  pointer-events: none;
 }
 
 .menu-item {
@@ -63,6 +64,7 @@
 .nav-button {
   box-sizing: border-box;
   padding: 0 1rem;
+  filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
 }
 .nav-button button {
   background-color: #e52521;
@@ -97,24 +99,28 @@
   transform: scale(1.2, 1.2);
 }
 
-input {
+input#menu-input {
   font-family: Quicksand, sans-serif;
   font-size: 2rem;
   background: none;
   border: none;
   border-bottom: 2px solid black;
 }
-input::placeholder {
+input#menu-input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: black;
   opacity: 1;
   /* Firefox */
 }
-input:-ms-input-placeholder {
+input#menu-input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: black;
 }
-input::-ms-input-placeholder {
+input#menu-input::-ms-input-placeholder {
   /* Microsoft Edge */
   color: black;
+}
+
+#menu-input-label {
+  font-family: Quicksand, sans-serif;
 }
