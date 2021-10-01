@@ -38,12 +38,20 @@
 
 #bg-dummy-main {
   position: absolute;
+<<<<<<< HEAD
   background-image:url(./static/2a.png);
   background-position: center;
   background-size: cover;
   z-index:-2;
   height:100vh;
   width:100vw;
+=======
+  //background-image:url(./static/2a.png);
+  z-index:-2;
+  height:100vh;
+  width:80vw;
+  pointer-events: none;
+>>>>>>> 77ec1f351344040e5df8b0cc69c0550693182479
 }
 
 .menu-item {
@@ -66,6 +74,7 @@
 .nav-button {
   box-sizing: border-box;
   padding: 0 1rem;
+  filter:drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
   button{
     background-color: #e52521;
     color:#e4e4e4;
@@ -100,7 +109,7 @@
   }
 }
 
-input {
+input#menu-input {
   font-family: Quicksand, sans-serif;
   font-size: 2rem;
   background: none;
@@ -118,4 +127,8 @@ input {
   &::-ms-input-placeholder { /* Microsoft Edge */
     color: black;
   }
+}
+
+#menu-input-label {
+  font-family: Quicksand, sans-serif;
 }

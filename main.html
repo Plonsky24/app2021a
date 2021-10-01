@@ -3,11 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+<<<<<<< HEAD
     <link href="./tailwind-dark.css" rel="stylesheet">
     <link href="./styles.css" rel="stylesheet">
+=======
+    <link href="./custom-styles.css" rel="stylesheet">
+    <link href="./tailwind-dark.css" rel="stylesheet">
+>>>>>>> 77ec1f351344040e5df8b0cc69c0550693182479
     <script type="module">
       import { createApp } from 'https://unpkg.com/petite-vue?module';
-
       createApp({
         el: '#body',
         dataFields:{
@@ -144,9 +148,9 @@
         },
         active (field){
           if (field == this.currfield){
-            return "menu-item-active";
+            return "menu-item menu-item-active";
           } else {
-            return "";
+            return "menu-item";
           }
         },
         selectCharacter (index) {
@@ -169,7 +173,6 @@
       }).mount()
     </script>
   </head>
-
   <body class="bg-gray-100" v-scope>
     <div id="bg-dummy-welcome" v-if="status == 0"></div>
     <div id="bg-dummy-main" v-if="status != 0"></div>
@@ -196,7 +199,7 @@
 
       <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="status == 2">
         <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
-          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi  menu-item flex-0 w-3/5">
+          <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi flex-0 w-3/5">
             <p v-text="field.label"></p>
           </div>
         </div>
@@ -212,14 +215,11 @@
         </div>
 
         <div class="bg-white-100 flex flex-row-reverse col-span-2 row-start-5 col-start-5 p-8 items-end">
-          <div class="nav-button"><button @click="debug()" v-show="onLast" class="font-eras-bold"><p>SUBMIT</p></button></div>
-          <div class="nav-button"><button @click="next()" v-show="!onLast" class="font-eras-bold"><p>NEXT</p></button></div>
-          <div class="nav-button"><button @click="back()" v-show="!onFirst" class="font-eras-bold"><p>BACK</p></button></div>
-
-
+          <div class="font-eras-bold nav-button"><button @click="debug()" v-show="onLast"><p>SUBMIT</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="next()" v-show="!onLast"><p>NEXT</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="back()" v-show="!onFirst"><p>BACK</p></button></div>
         </div>
       </div>
     </div>
-
   </body>
 </html>
