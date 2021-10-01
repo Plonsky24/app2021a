@@ -24,7 +24,6 @@
 
 #bg-dummy-welcome {
   position: absolute;
-  background-image: url(./static/1a.png);
   background-position: center;
   background-size: cover;
   z-index: -2;
@@ -43,6 +42,16 @@
   pointer-events: none;
 }
 
+#bg-icon-dummy {
+  position: absolute;
+  z-index: -3;
+  right: 10%;
+  top: 10%;
+  height: 80vh;
+  width: auto;
+  pointer-events: none;
+}
+
 .menu-item {
   filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
 }
@@ -53,8 +62,7 @@
   display: block;
   box-sizing: border-box;
   padding: 0 10%;
-  -webkit-clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
-          clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+  clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
 }
 
 #img-welcome {
@@ -71,8 +79,7 @@
   color: #e4e4e4;
   font-size: 2rem;
   transition: all 0.2s ease-in-out;
-  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
 .nav-button button p {
   margin: 0 1rem;
@@ -87,8 +94,7 @@
   color: #e4e4e4;
   font-size: 3rem;
   transition: all 0.2s ease-in-out;
-  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
 .start-button button p {
   margin: 0 2rem;
@@ -124,3 +130,5 @@ input#menu-input::-ms-input-placeholder {
 #menu-input-label {
   font-family: Quicksand, sans-serif;
 }
+
+/*# sourceMappingURL=styles.css.map */
