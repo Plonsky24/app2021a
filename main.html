@@ -22,7 +22,7 @@
           });
 
           Promise.all(images).then(() => {
-            //console.log("Images loaded!");
+            console.log("Images loaded!");
             this.isLoading = false;
           }).catch(error => {
             //console.error("Some image(s) failed loading!");
@@ -149,7 +149,7 @@
         pageNo: 0,
         validateFlag: 0,
         pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns", "Review"],
-        status: 0,
+        status: -1,
         pullData (){
           let JSONData = [];
           for (let fieldKey in this.pages) {
@@ -167,6 +167,7 @@
           }
         },
         readyContinue (){
+        this.buttonSFX();
           /* console.log("YAY!") */
           if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
           if (localStorage.data) {this.pushData(localStorage.data)}
@@ -175,14 +176,21 @@
           else {this.status = 2; localStorage.status = 2;}
         },
         readyNew (){
+        this.buttonSFX();
           localStorage.clear();
           this.ready();
         },
+        readyLoading (){
+          document.getElementById("bgAudio").play();
+          this.status++;
+        },
         ready (){
+          this.buttonSFX();
           this.status++;
           localStorage.status = this.status;
         },
         next (){
+          this.buttonSFX();
           if (this.currfield.validate){
             this.validateFlag = 0;
             this.pageNo++;
@@ -194,6 +202,7 @@
           }
         },
         back (){
+          this.buttonSFX();
           this.pageNo--;
           localStorage.pageNo = this.pageNo;
         },
@@ -263,11 +272,40 @@
             },
           })
           .catch((err)=> console.error(err))
+        },
+        volumeValue: 50,
+        changeVolume () {
+          document.getElementById("bgAudio").volume = this.volumeValue/100;
+          document.getElementById("bgSFX").volume = this.volumeValue/100;
+        },
+        buttonSFX (){
+          document.getElementById("bgSFX").play();
         }
       }).mount()
     </script>
   </head>
   <body class="bg-gray-100" @mounted="mounted" v-scope>
+    <audio id="bgAudio" loop>
+     <source src="./static/audio/21A BG Music.mp3"  type="audio/mpeg">
+    </audio>
+    <audio id="bgSFX">
+     <source src="./static/audio/Sound FX.mp3"  type="audio/mpeg">
+    </audio>
+    <div id="loadingscreen" v-if="status == -1">
+      <div id="logo" @click="readyLoading()">
+        <img src="./static/upcircuitformal_small.png" alt="U.P. Circuit Logo" id="circuit-logo">
+      </div>
+      <div id="loadingRing" v-if="isLoading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div id="disclaimer" class="no-select">
+        <h2 id="clickTag">Click the logo to proceed</h2>
+        For a better viewing experience, please view this site on a Desktop Computer
+      </div>
+    </div>
     <div id="bg-dummy-welcome" v-if="status == 0"></div>
     <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
     <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
@@ -279,6 +317,12 @@
         <div class="flex justify-center">
           <div class="start-button font-eras-bold"><button @click="readyNew()"><p>START NEW</p></button></div>
           <div class="start-button font-eras-bold" v-show="localStorage.data"><button @click="readyContinue()"><p>CONTINUE</p></button></div>
+        </div>
+        <div class="flex justify-center">
+          <div class="m-2">Volume:</div>
+          <div class="m-2">
+            <input @change="changeVolume" type="range" min=0 max=100 class="volumeSlider" v-model="volumeValue">
+          </div>
         </div>
       </div>
 
