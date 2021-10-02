@@ -94,7 +94,7 @@
         CharData: {
           label: "Character",
           selected: 0,
-          optionLabel: ["mario", "luigi", "peach", "bowser", "daisy", "yoshi"],
+          optionLabel: ["Mario", "Luigi", "Peach", "Bowser", "Daisy", "Yoshi"],
           optionFlavor: ["Having been the main star of the show and the whole franchise, Mario represents a natural leader who joins a lot of extracurricular activities and enjoys mingling with a lot of people—used to being in the spotlight.",
           "A simple and lowkey person. They enjoy spending time on their own but often still have extroverted friends like Mario who they get along with. They are really fun and nice to be with once you get to know them :)",
           "The pretty/pogi one who gets hundreds of likes on their profile pictures. Mahilig umawra, fashionista, at palaging naka-ootd tuwing may gala.",
@@ -113,6 +113,9 @@
           },
           get flavor2() {
             return this.optionFlavor2[this.selected]
+          },
+          get label(){
+            return this.optionLabel[this.selected];
           }
         },
         pageNo: 0,
@@ -153,6 +156,7 @@
         },
         next (){
           if (this.currfield.validate){
+            this.validateFlag = 0;
             this.pageNo++;
             localStorage.pageNo = this.pageNo;
             localStorage.data = this.pullData();
@@ -265,6 +269,7 @@
           class="row-start-1 col-start-4 row-span-2 col-span-5"
         ></div>
         <div id="character-flavor" class="row-start-3 col-start-4 row-span-2 col-span-5">
+          <h2>{{ CharData.label }}</h2>
           <p>{{ CharData.flavor }}</p><br>
           <p>Characteristics: {{ CharData.flavor2 }}</p>
         </div>
@@ -281,7 +286,7 @@
           </div>
         </div>
 
-        <div class="col-span-3 row-span-2 col-start-4 row-start-2 place-self-center">
+        <div id="form-helper" class="col-span-3 row-span-2 col-start-4 row-start-2">
           <div v-show="!onLast">
             <input
               id="menu-input"
@@ -296,7 +301,7 @@
               </template>
             </select>
           </div>
-          <p class="validation-warning" v-if="validateFlag">Validation Error! Please match the given format.</p>
+          <p class="validation-warning" v-if="validateFlag">Validation Error!<br>Please match the given format.</p>
           <p v-if="onLast" class="submit-text">Would you like to submit?</p>
         </div>
 
