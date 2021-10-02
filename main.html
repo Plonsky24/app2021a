@@ -55,7 +55,7 @@
             dataType: "text",
             placeholder: "20XX-YYYYY",
             get validate () {
-              if (/20\d{2}-\d{5}/.test(this.data)){
+              if (/20\d{2}-\d{5}$/.test(this.data)){
                 return true;
               } else { return false; }
             }
@@ -190,8 +190,8 @@
           localStorage.status = this.status;
         },
         next (){
-          this.buttonSFX();
           if (this.currfield.validate){
+            this.buttonSFX();
             this.validateFlag = 0;
             this.pageNo++;
             localStorage.pageNo = this.pageNo;
@@ -207,6 +207,7 @@
           localStorage.pageNo = this.pageNo;
         },
         backCharSelect (){
+          this.buttonSFX();
           this.status--;
           localStorage.status = this.status;
         },
