@@ -211,20 +211,15 @@
     <img src="./static/2a.png" id="bg-dummy-main" v-if="status == 2"></img>
     <img src="./static/mario.png" id="icon-dummy-main" v-if="status == 2"></img>
     <div class="h-screen">
-      <div id="loading" v-if="status == 0" class="grid place-self-center place-items-center h-screen">
+      <div id="loading" v-show="status == 0" class="grid place-self-center place-items-center h-screen">
         <div class="items-center"><img src="./static/welcem.png" id="img-welcome" class="mx-auto"></img></div>
         <div class="flex justify-center">
-          <div class="start-button"><button @click="readyNew()" class="font-eras-bold"><p>START NEW</p></button></div>
-          <div class="start-button" v-if="localStorage.dataFields">
-            <button @click="readyContinue()" class="font-eras-bold">
-              <p>CONTINUE</p>
-            </button>
-          </div>
+          <div class="start-button font-eras-bold"><button @click="readyNew()"><p>START NEW</p></button></div>
+          <div class="start-button font-eras-bold" v-show="localStorage.dataFields"><button @click="readyContinue()"><p>CONTINUE</p></button></div>
         </div>
       </div>
 
-      <div id="character" v-if="status == 1" class="grid grid-cols-8 grid-rows-6 gap-2 min-h-full">
-        <!-- <img id="choose-char-image" src="./static/chooseachar.png"></img> -->
+      <div id="character" v-show="status == 1" class="grid grid-cols-8 grid-rows-6 gap-2 min-h-full">
         <div id="character-picker" class="row-start-2 row-span-4 w-4/5 place-self-center col-span-3 bg-white bg-opacity-50 rounded-lg flex items-center flex-wrap">
           <div v-for="(characterLabel, index) in CharData.optionLabel"
               @click="selectCharacter(index)"
@@ -244,7 +239,7 @@
         </div>
       </div>
 
-      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-if="status == 2">
+      <div id="form" class="grid grid-cols-6 grid-rows-5 gap-2 min-h-full" v-show="status == 2">
         <div class="row-span-5 col-span-3 flex flex-col justify-evenly items-center">
           <div v-for="field in dataFields" v-bind:class="active(field)" class="font-eras-demi flex-0 w-3/5">
             <p v-text="field.label"></p>
@@ -252,8 +247,8 @@
         </div>
 
         <div class="col-span-3 row-span-2 col-start-5 row-start-2 place-self-center">
-          <input id="menu-input" @change="dataUpdate" type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
-          <select @change="dataUpdate" v-model="currfield.data" v-if="currfield.dataType == 'selection'">
+          <input id="menu-input" @change="dataUpdate" placeholder="Insert answer here..." type="text" v-model="currfield.data" v-show="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
+          <select @change="dataUpdate" v-model="currfield.data" v-show="currfield.dataType == 'selection'">
             <template v-for="option in currfield.options">
               <option v-text="option"></option>
             </template>
