@@ -141,7 +141,7 @@
           if (localStorage.data) {this.pushData(localStorage.data)}
           if (localStorage.status) {this.status = localStorage.status}
           if (localStorage.character) {this.CharData.selected = localStorage.character}
-          else {this.status = 1; localStorage.status = 1}
+          else {this.status = 2; localStorage.status = 2;}
         },
         readyNew (){
           localStorage.clear();
@@ -164,6 +164,10 @@
         back (){
           this.pageNo--;
           localStorage.pageNo = this.pageNo;
+        },
+        backCharSelect (){
+          this.status--;
+          localStorage.status = this.status;
         },
         get onFirst (){
           return (this.pageNo == 0)
@@ -300,9 +304,9 @@
         </div>
 
         <div class="bg-white-100 flex flex-row-reverse col-span-2 row-start-5 col-start-5 p-8 items-end">
-          <div class="font-eras-bold nav-button"><button @click="debug()" v-show="onLast"><p>SUBMIT</p></button></div>
-          <div class="font-eras-bold nav-button"><button @click="next()" v-show="!onLast"><p>NEXT</p></button></div>
-          <div class="font-eras-bold nav-button"><button @click="back()" v-show="!onFirst"><p>BACK</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="debug()" v-if="onLast"><p>SUBMIT</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="next()" v-if="!onLast"><p>NEXT</p></button></div>
+          <div class="font-eras-bold nav-button"><button @click="onFirst ? backCharSelect() : back()"><p>BACK</p></button></div>
         </div>
       </div>
 
