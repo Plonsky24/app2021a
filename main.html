@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <meta name="description" content="Join UP Circuit now!">
     <meta charset="utf-8">
-    <title></title>
+    <title>UP Circuit 21A App Form</title>
+    <link rel="icon" href="./static/Circuit Logo Square 1080p.png" type="image/png">
     <link href="./styles.css" rel="stylesheet">
     <link href="./tailwind-dark.css" rel="stylesheet">
     <script type="module">
       import { createApp } from 'https://unpkg.com/petite-vue?module';
       createApp({
         el: '#body',
+        mounted(){
+          const images = this.imagesToPreload.map(imageSrc => {
+            return new Promise((resolve, reject) => {
+              const img = new Image();
+              img.src = imageSrc;
+              img.onload = resolve;
+              img.onerror = reject;
+            });
+          });
+
+          Promise.all(images).then(() => {
+            console.log("Images loaded!");
+            this.isLoading = false;
+          }).catch(error => {
+            //console.error("Some image(s) failed loading!");
+            console.error(error.message)
+          });
+        },
+        isLoading: true,
+        imagesToPreload: [
+          "./static/1a.png",
+          "./static/2a.png",
+          "./static/3a.png",
+          "./static/4a.png",
+          "./static/WELCEM.png",
+          "./static/trophy.png",
+          "./static/seeyou.png",
+        ],
         dataFields:{
           Name: {
             label: "Full Name",
@@ -27,7 +57,7 @@
             dataType: "text",
             placeholder: "20XX-YYYYY",
             get validate () {
-              if (/20\d{2}-\d{5}/.test(this.data)){
+              if (/20\d{2}-\d{5}$/.test(this.data)){
                 return true;
               } else { return false; }
             }
@@ -121,7 +151,7 @@
         pageNo: 0,
         validateFlag: 0,
         pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns", "Review"],
-        status: 0,
+        status: -1,
         pullData (){
           let JSONData = [];
           for (let fieldKey in this.pages) {
@@ -139,6 +169,7 @@
           }
         },
         readyContinue (){
+        this.buttonSFX();
           /* console.log("YAY!") */
           if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
           if (localStorage.data) {this.pushData(localStorage.data)}
@@ -147,15 +178,22 @@
           else {this.status = 2; localStorage.status = 2;}
         },
         readyNew (){
+        this.buttonSFX();
           localStorage.clear();
           this.ready();
         },
+        readyLoading (){
+          document.getElementById("bgAudio").play();
+          this.status++;
+        },
         ready (){
+          this.buttonSFX();
           this.status++;
           localStorage.status = this.status;
         },
         next (){
           if (this.currfield.validate){
+            this.buttonSFX();
             this.validateFlag = 0;
             this.pageNo++;
             localStorage.pageNo = this.pageNo;
@@ -166,10 +204,12 @@
           }
         },
         back (){
+          this.buttonSFX();
           this.pageNo--;
           localStorage.pageNo = this.pageNo;
         },
         backCharSelect (){
+          this.buttonSFX();
           this.status--;
           localStorage.status = this.status;
         },
@@ -203,11 +243,7 @@
         debug (){
           //quickly go to TY page.
           this.ready()
-          // sample url
-          https://docs.google.com/forms/d/e/1FAIpQLSdimV_BMwHWE-cKeX2fb12D4B0zerxjprYBW_5jRUxd_YRWFQ/formResponse?entry.1971848531=ASDASDAS&entry.2095210633=ASDASD&entry.1023986858=ASDSADASD&entry.2106804884=ASDASDA&entry.15147818=AFHD&entry.1362062595=DFHDF&entry.581553320=DFHDFH&entry.2083507613=DFHFDHD
           var url = "https://docs.google.com/forms/d/e/1FAIpQLSdimV_BMwHWE-cKeX2fb12D4B0zerxjprYBW_5jRUxd_YRWFQ/formResponse?"
-
-          // 'entry.2083507613': characterSelect
 
           var names = ['entry.1971848531', 'entry.2095210633', 'entry.1023986858', 'entry.2106804884', 'entry.15147818', 'entry.1362062595', 'entry.581553320']
           var i = 0;
@@ -225,13 +261,11 @@
               }
             }
             else { url += field; }
-            if (i < 6) { url += '&'; } /* change to 7 after adding charselect */
+            url += '&';
             i++;
           }
-
-          //console.log(url);
-
-          // console.log(data);
+          url += 'entry.2083507613=';
+          url += this.CharData.label;
 
           fetch(url, {
             method: 'GET',
@@ -241,11 +275,45 @@
             },
           })
           .catch((err)=> console.error(err))
+        },
+        volumeValue: 50,
+        changeVolume () {
+          document.getElementById("bgAudio").volume = this.volumeValue/100;
+          document.getElementById("bgSFX").volume = this.volumeValue/100;
+        },
+        buttonSFX (){
+          document.getElementById("bgSFX").play();
         }
       }).mount()
     </script>
   </head>
-  <body class="bg-gray-100" v-scope>
+  <body class="bg-gray-100" @mounted="mounted" v-scope>
+    <div id="landscapeForcer">
+      <span>
+        <h3> Please rotate your screen to a landscape position </h3>
+      </span>
+    </div>
+    <audio id="bgAudio" loop>
+     <source src="./static/audio/21A BG Music.mp3"  type="audio/mpeg">
+    </audio>
+    <audio id="bgSFX">
+     <source src="./static/audio/Sound FX.mp3"  type="audio/mpeg">
+    </audio>
+    <div id="loadingscreen" v-if="status == -1">
+      <div id="logo" @click="readyLoading()">
+        <img src="./static/upcircuitformal_small.png" alt="U.P. Circuit Logo" id="circuit-logo">
+      </div>
+      <div id="loadingRing" v-if="isLoading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div id="disclaimer" class="no-select">
+        <h2 id="clickTag">Click the logo to proceed</h2>
+        For a better viewing experience, please view this site on a Desktop Computer
+      </div>
+    </div>
     <div id="bg-dummy-welcome" v-if="status == 0"></div>
     <img src="./static/2a.png" id="bg-dummy-main" v-if="status == 2"></img>
     <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
@@ -256,6 +324,12 @@
         <div class="flex justify-center">
           <div class="start-button font-eras-bold"><button @click="readyNew()"><p>START NEW</p></button></div>
           <div class="start-button font-eras-bold" v-show="localStorage.data"><button @click="readyContinue()"><p>CONTINUE</p></button></div>
+        </div>
+        <div class="flex justify-center">
+          <div class="m-2">Volume:</div>
+          <div class="m-2">
+            <input @change="changeVolume" type="range" min=0 max=100 class="volumeSlider" v-model="volumeValue">
+          </div>
         </div>
       </div>
 
@@ -320,7 +394,7 @@
       <div id="thank-you" class="grid grid-cols-8 grid-rows-6 min-h-full gap-2" v-show=" status == 3">
         <div id="ty-banner" class="place-self-center row-start-2 row-span-2 col-start-1 col-span-5"></div>
         <div id="ty-text" class="place-self-center row-start-4 row-span-2 col-start-1 col-span-5">
-          <p>@ the Applicant's Orientation<br>31 September 2021<br>6pm</p>
+          <p>@ the Applicant's Orientation<br>8 October 2021<br>3-5 PM<br>Check your emails!</p>
         </div>
         <div id="ty-trophy" class="row-start-1 row-span-6 col-start-6 col-span-3 place-self-center"></div>
       </div>

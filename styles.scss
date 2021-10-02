@@ -78,13 +78,47 @@ $brand-yellow: #fbd000;
   filter:drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
   p {
     background-color: #e4e4e4;
-    font-size:2rem;
+    font-size:2.5rem;
     transition: all .2s ease-in-out;
     display:block;
     box-sizing: border-box;
     padding: 0 10%;
     clip-path:polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
   }
+}
+
+.volumeSlider {
+  -webkit-appearance: none;
+  width: 10rem;
+  height: .75rem;
+  border-radius: .75rem;
+  background: #e4e4e4;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+
+&::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: $brand-yellow;
+  cursor: pointer;
+}
+
+&::-moz-range-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: $brand-yellow;
+  cursor: pointer;
+}
+
+&:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
 }
 
 #img-welcome {
@@ -314,4 +348,172 @@ input#menu-input {
 
 #form-helper {
   place-self:center center;
+}
+
+#loadingscreen{
+  background-color: #111111;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 9980;
+  text-align: center;
+  -webkit-transition: opacity 1.5s;
+  transition: opacity 1.5s;
+  span{
+    color: #dddddd;
+    width: 100vh;
+    padding: 0;
+  }
+  #logo {
+    position: relative;
+    width: 52vh;
+    height: 52vh;
+    top: 50%;
+    -webkit-transform: translateY(-56%);
+            transform: translateY(-56%);
+    -webkit-transition: opacity 1.5s;
+    transition: opacity 1.5s;
+    margin: auto;
+  }
+  #circuit-logo {
+    width: 100%;
+    height: 100%;
+    -webkit-animation-delay: 1.5s;
+            animation-delay: 1.5s;
+    -webkit-animation-timing-function: ease;
+            animation-timing-function: ease;
+    -webkit-transition: -webkit-transform 0.2s;
+    transition: -webkit-transform 0.2s;
+    transition: transform 0.2s;
+    transition: transform 0.2s, -webkit-transform 0.2s;
+  }
+  #circuit-logo:hover{
+    transform: scale(1.1);
+    transition: all ease 500ms;
+  }
+  #disclaimer {
+    position: absolute;
+    bottom: 10%;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+            transform: translateX(50%);
+    color: #FFF;
+    font-size: 2.25vh;
+    text-align: center;
+  }
+}
+
+#loadingRing {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 256px;
+  height: 256px;
+  margin-left: -128px;
+  margin-top: -128px;
+  div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 256px;
+    height: 256px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.17, .88, 0.73, .12) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#landscapeForcer{
+  display: block;
+  background-color: #111111;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: -9990;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .5s ease-out;
+  -webkit-transition: opacity .5s ease-out;
+  -moz-transition: opacity .5s ease-out;
+  -o-transition: opacity .5s ease-out;
+  span{
+    display: inline-block;
+    color: #ffffff;
+    font-size: 5vh;
+    width: 100%;
+    margin-top: 30vh;
+    opacity: 0;
+    transition: opacity .5s ease-out;
+    -webkit-transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    -o-transition: opacity .5s ease-out;
+    h3{
+      margin-left: 5vh;
+      margin-right: 5vh;
+    }
+  }
+}
+
+@media screen and (orientation: portrait) {
+  #landscapeForcer {
+    opacity: 1;
+    z-index: 9990;
+  }
+
+  #landscapeForcer span{
+    opacity: 1;
+  }
 }
