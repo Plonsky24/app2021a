@@ -158,7 +158,7 @@
             localStorage.data = this.pullData();
           } else {
             this.validateFlag = 1;
-            alert('Validation Error')
+            //alert('Validation Error')
           }
         },
         back (){
@@ -253,12 +253,12 @@
       </div>
 
       <div id="character" v-show="status == 1" class="grid grid-cols-8 grid-rows-6 gap-2 min-h-full">
-        <div id="character-picker" class="row-start-2 row-span-4 w-4/5 place-self-center col-span-3 bg-white bg-opacity-25 rounded-3xl flex items-center flex-wrap">
+        <div id="character-picker" class="row-start-2 row-span-5 w-4/5 col-span-3 bg-white bg-opacity-25 rounded-3xl flex items-center flex-wrap">
           <div v-for="(characterLabel, index) in CharData.optionLabel"
               @click="selectCharacter(index)"
               v-bind:class="activeCharacter(index)"
               class="flex-basis-50">
-              <img v-bind:src="'./static/characters/' + characterLabel + '.png'"></img>
+              <img v-bind:src="'./static/characters/' + characterLabel.toLowerCase() + '.png'"></img>
           </div>
         </div>
         <div id="character-banner"
@@ -268,7 +268,7 @@
           <p>{{ CharData.flavor }}</p><br>
           <p>Characteristics: {{ CharData.flavor2 }}</p>
         </div>
-        <div class="row-span-1 col-span-2 col-start-6 row-start-6 justify-self-center flex flex-row ">
+        <div id="char-select-ok" class="row-span-1 col-span-3 col-start-6 row-start-6 justify-self-center flex flex-row-reverse ">
           <div class="self-center font-eras-bold nav-button"><button @click="ready()"><p>SELECT</p></button></div>
         </div>
       </div>
@@ -296,6 +296,7 @@
               </template>
             </select>
           </div>
+          <p class="validation-warning" v-if="validateFlag">Validation Error! Please match the given format.</p>
           <p v-if="onLast" class="submit-text">Would you like to submit?</p>
         </div>
 

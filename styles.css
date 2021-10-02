@@ -117,7 +117,7 @@
   transition: all 0.2s ease-in-out;
 }
 .start-button button {
-  background-color: #FBD000;
+  background-color: #fbd000;
   color: #e4e4e4;
   font-size: 3.5rem;
   -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
@@ -137,7 +137,7 @@
 }
 
 .menu-item-active p {
-  background-color: #FBD000;
+  background-color: #fbd000;
   transform: scale(1.2, 1.2);
 }
 
@@ -193,7 +193,9 @@ input#menu-input::-ms-input-placeholder {
 }
 
 #character-picker {
-  height: 100%;
+  height: 90%;
+  row-gap: 0rem;
+  place-self: start center;
 }
 
 .character-option {
@@ -217,7 +219,7 @@ input#menu-input::-ms-input-placeholder {
   opacity: 50%;
 }
 .character-option img {
-  width: 50%;
+  width: 60%;
   height: auto;
   margin: auto;
 }
@@ -238,7 +240,16 @@ input#menu-input::-ms-input-placeholder {
 #character-flavor {
   width: 90%;
   font-family: Quicksand, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  height: 100%;
+}
+#character-flavor h2 {
+  font-family: ErasBoldITC, sans-serif;
+  font-size: 3rem;
+}
+#character-flavor p {
+  margin-left: 2rem;
+  white-space: pre-line;
 }
 
 #character-banner {
@@ -278,4 +289,17 @@ input#menu-input::-ms-input-placeholder {
   background-position: center center;
   height: 90%;
   width: 100%;
+}
+
+.validation-warning {
+  margin-top: 2rem;
+  font-family: Quicksand, sans-serif;
+  font-size: 2rem;
+  color: #e52521;
+}
+
+#char-select-ok div {
+  box-sizing: border-box;
+  padding-left: 8rem;
+  padding-right: 0;
 }
