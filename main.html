@@ -9,6 +9,32 @@
       import { createApp } from 'https://unpkg.com/petite-vue?module';
       createApp({
         el: '#body',
+        mounted(){
+          const images = this.imagesToPreload.map(imageSrc => {
+            return new Promise((resolve, reject) => {
+              const img = new Image();
+              img.src = imageSrc;
+              img.onload = resolve;
+              img.onerror = reject;
+            });
+          });
+
+          Promise.all(images).then(() => {
+            //console.log("Images loaded!");
+            this.isLoading = false;
+          }).catch(error => {
+            //console.error("Some image(s) failed loading!");
+            console.error(error.message)
+          });
+        },
+        isLoading: true,
+        imagesToPreload: [
+          "./static/1a.png",
+          "./static/2a.png",
+          "./static/3a.png",
+          "./static/4a.png",
+          "./static/WELCEM.png",
+        ],
         dataFields:{
           Name: {
             label: "Full Name",
@@ -239,7 +265,7 @@
       }).mount()
     </script>
   </head>
-  <body class="bg-gray-100" v-scope>
+  <body class="bg-gray-100" @mounted="mounted" v-scope>
     <div id="bg-dummy-welcome" v-if="status == 0"></div>
     <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
     <img src="./static/3a.png" id="bg-dummy-char" v-if="status == 1"></img>
