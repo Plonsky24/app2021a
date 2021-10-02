@@ -94,10 +94,19 @@
         CharData: {
           label: "Character",
           selected: 0,
-          optionLabel: ["mario", "luigi", "bowser", "peach", "daisy", "yoshi"],
-          optionFlavor: ["A flavor", "B flavor", "C flavor", "D flavor", "E flavor", "F flavor"],
+          optionLabel: ["Mario", "Luigi", "Bowser", "Peach", "Daisy", "Yoshi"],
+          optionFlavor: ["Having been the main star of the show and the whole franchise, Mario represents a natural leader who joins a lot of extracurricular activities and enjoys mingling with a lot of people—used to being in the spotlight.\nCharacteristics: Extroverted, bidakid, stellar, class officer, BS Org",
+            "A simple and lowkey person. They enjoy spending time on their own but often still have extroverted friends like Mario who they get along with. They are really fun and nice to be with once you get to know them :) \nCharacteristics: Introverted, independent, lowkey, shy",
+            "The pretty/pogi one who gets hundreds of likes on their profile pictures. Mahilig umawra, fashionista, at palaging naka-ootd tuwing may gala.\nCharacteristics: PRETTY/POGI AF, fashionable, active sa Socmed, muse/escort ng class",
+            "Bowser may often be characterized as the villain, but they actually just do what they do to reach their goals. They won’t let anything or anyone stand in the way of them getting what they want. They be goal diggers ;) \nCharacteristics: Goal-oriented, ambitious, maangas, anak ng mafia boss",
+            "Daisy is either sporty or talented, or both. They are active af and like to practice their skills everyday when they can. They are very passionate in what they love to do. \nCharacteristics: Sporty, talented, active, competitive",
+            "Yoshi is the cutest person in the world loved by everyone. You often see them sharing wholesome memes on the timeline or on your GCs. Always asks you how your day was. Most probably like petting and playing with doggos and cattos. \nCharacteristics: Wholesome, cute, thoughtful"
+          ],
           get flavor() {
               return this.optionFlavor[this.selected]
+          },
+          get label() {
+              return this.optionLabel[this.selected];
           }
         },
         pageNo: 0,
@@ -125,7 +134,7 @@
             localStorage.pageNo = this.pageNo;
           } else {
             this.validateFlag = 1;
-            alert('Validation Error')
+            //alert('Validation Error')
           }
         },
         back (){
@@ -228,13 +237,14 @@
               @click="selectCharacter(index)"
               v-bind:class="activeCharacter(index)"
               class="flex-basis-50">
-              <img v-bind:src="'./static/characters/' + characterLabel + '.png'"></img>
+              <img v-bind:src="'./static/characters/' + characterLabel.toLowerCase() + '.png'"></img>
           </div>
         </div>
         <div id="character-banner"
           class="row-start-1 col-start-4 row-span-2 col-span-5"
         ></div>
         <div id="character-flavor" class="row-start-3 col-start-4 row-span-2 col-span-5">
+          <h2 id="character-label"> {{ CharData.label }} </h2>
           {{ CharData.flavor }}
         </div>
         <div class="row-span-1 col-span-2 col-start-6 row-start-6 justify-self-center flex flex-row ">
@@ -263,6 +273,7 @@
               <option v-text="option"></option>
             </template>
           </select>
+          <p class="validation-warning" v-if="validateFlag">Validation Error! Please match the given format.</p>
         </div>
 
         <div class="bg-white-100 flex flex-row-reverse col-span-2 row-start-5 col-start-5 p-8 items-end">
