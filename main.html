@@ -119,10 +119,26 @@
         validateFlag: 0,
         pages: ["Name", "StudentNo", "Course", "Email", "Contacts", "Facebook", "Pronouns", "Review"],
         status: 0,
+        pullData (){
+          let JSONData = [];
+          for (let fieldKey in this.pages) {
+            if (fieldKey == this.pages.length - 1) {continue}
+            let name = this.pages[fieldKey];
+            let JSONvar = {[name]:this.dataFields[name].data};
+            JSONData.push(JSONvar);
+          }
+          return JSON.stringify(JSONData)
+        },
+        pushData (JSONData){
+          let parsedJSON = JSON.parse(JSONData)
+          for (let fieldKey in parsedJSON) {
+            this.dataFields[this.pages[fieldKey]].data = parsedJSON[fieldKey][this.pages[fieldKey]];
+          }
+        },
         readyContinue (){
           /* console.log("YAY!") */
           if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
-          if (localStorage.dataFields) {this.dataFields = JSON.parse(localStorage.dataFields)}
+          if (localStorage.data) {this.pushData(localStorage.data)}
           if (localStorage.status) {this.status = localStorage.status}
           if (localStorage.character) {this.CharData.selected = localStorage.character}
           else {this.status = 1; localStorage.status = 1}
@@ -139,6 +155,7 @@
           if (this.currfield.validate){
             this.pageNo++;
             localStorage.pageNo = this.pageNo;
+            localStorage.data = this.pullData();
           } else {
             this.validateFlag = 1;
             alert('Validation Error')
@@ -175,10 +192,6 @@
           } else {
             return "character-option";
           }
-        },
-        dataUpdate () {
-          /* This is awful */
-          localStorage.dataFields = JSON.stringify(this.dataFields);
         },
         debug (){
           //quickly go to TY page.
@@ -236,7 +249,7 @@
         <div class="items-center"><img src="./static/welcem.png" id="img-welcome" class="mx-auto"></img></div>
         <div class="flex justify-center">
           <div class="start-button font-eras-bold"><button @click="readyNew()"><p>START NEW</p></button></div>
-          <div class="start-button font-eras-bold" v-show="localStorage.dataFields"><button @click="readyContinue()"><p>CONTINUE</p></button></div>
+          <div class="start-button font-eras-bold" v-show="localStorage.data"><button @click="readyContinue()"><p>CONTINUE</p></button></div>
         </div>
       </div>
 
@@ -273,13 +286,12 @@
           <div v-show="!onLast">
             <input
               id="menu-input"
-              @change="dataUpdate"
               placeholder="Insert answer here..."
               type="text"
               v-model="currfield.data"
               v-show="currfield.dataType == 'text'"
               :placeholder="currfield.placeholder"></input>
-            <select @change="dataUpdate" v-model="currfield.data" v-show="currfield.dataType == 'selection'" class="selector">
+            <select v-model="currfield.data" v-show="currfield.dataType == 'selection'" class="selector">
               <template v-for="option in currfield.options">
                 <option v-text="option"></option>
               </template>
