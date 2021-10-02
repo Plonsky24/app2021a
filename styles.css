@@ -76,8 +76,7 @@
   display: block;
   box-sizing: border-box;
   padding: 0 10%;
-  -webkit-clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
-          clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+  clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
 }
 
 #img-welcome {
@@ -94,8 +93,7 @@
   background-color: #e52521;
   color: #e4e4e4;
   font-size: 3rem;
-  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
 .nav-button button p {
   margin: 0 2rem;
@@ -120,8 +118,7 @@
   background-color: #fbd000;
   color: #e4e4e4;
   font-size: 3.5rem;
-  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
 .start-button button p {
   margin: 0 2.5rem;
@@ -294,12 +291,17 @@ input#menu-input::-ms-input-placeholder {
 .validation-warning {
   margin-top: 2rem;
   font-family: Quicksand, sans-serif;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #e52521;
+  text-align: right;
 }
 
 #char-select-ok div {
   box-sizing: border-box;
   padding-left: 8rem;
   padding-right: 0;
+}
+
+#form-helper {
+  place-self: center center;
 }

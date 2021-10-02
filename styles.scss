@@ -299,8 +299,9 @@ input#menu-input {
 .validation-warning {
   margin-top:2rem;
   font-family:Quicksand, sans-serif;
-  font-size:2rem;
+  font-size:1.5rem;
   color: $brand-red;
+  text-align: right;
 }
 
 #char-select-ok {
@@ -309,4 +310,8 @@ input#menu-input {
     padding-left:8rem;
     padding-right:0;
   }
+}
+
+#form-helper {
+  place-self:center center;
 }
