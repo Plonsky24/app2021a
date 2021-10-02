@@ -153,7 +153,7 @@
         },
         activeCharacter (index) {
           if (index == this.CharData.selected){
-            return "bg-yellow-100";
+            return "character-active";
           } else {
             return "";
           }
@@ -223,18 +223,24 @@
         </div>
       </div>
 
-      <div id="character" v-if="status == 1" class="grid grid-cols-5 grid-rows-7 gap-2 min-h-full">
-        <img id="choose-char-image" src="./static/chooseachar.png"></img>
-        <div class="row-span-6 row-start-2 col-span-2 bg-white bg-opacity-50 rounded-lg grid grid-cols-2 grid-rows-3 gap-2">
-          <div id="character-picker" v-for="(characterLabel, index) in CharData.optionLabel" @click="selectCharacter(index)" v-bind:class="activeCharacter(index)" class="p-2 ">
-            <img v-bind:src="'./static/characters/' + characterLabel + '.png'"></img>
+      <div id="character" v-if="status == 1" class="grid grid-cols-8 grid-rows-6 gap-2 min-h-full">
+        <!-- <img id="choose-char-image" src="./static/chooseachar.png"></img> -->
+        <div id="character-picker" class="row-start-2 row-span-4 w-4/5 place-self-center col-span-3 bg-white bg-opacity-50 rounded-lg flex items-center flex-wrap">
+          <div v-for="(characterLabel, index) in CharData.optionLabel"
+              @click="selectCharacter(index)"
+              v-bind:class="activeCharacter(index)"
+              class="flex-basis-50">
+              <img v-bind:src="'./static/characters/' + characterLabel + '.png'"></img>
           </div>
         </div>
-        <div class="row-span-2 row-start-3 col-start-3 col-span-3 bg-blue-100">
+        <div id="character-banner"
+          class="row-start-1 col-start-4 row-span-2 col-span-5"
+        ></div>
+        <div id="character-flavor" class="row-start-3 col-start-4 row-span-2 col-span-5">
           {{ CharData.flavor }}
         </div>
-        <div class="row-span-3 col-span-1 col-start-3 row-start-4 bg-white-100 flex flex-row">
-          <div><button @click="ready()" class="p-2 bg-red-200 text-gray-100 font-bold tracking-widest">SELECT</button></div>
+        <div class="row-span-1 col-span-2 col-start-6 row-start-6 justify-self-center flex flex-row">
+          <div class="font-eras-bold nav-button"><button @click="ready()"><p>SELECT</p></button></div>
         </div>
       </div>
 
@@ -246,8 +252,7 @@
         </div>
 
         <div class="col-span-3 row-span-2 col-start-5 row-start-2 place-self-center">
-          <input id="menu-input" @change="dataUpdate" placeholder="Insert answer here..." type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
-
+          <input id="menu-input" @change="dataUpdate" type="text" v-model="currfield.data" v-if="currfield.dataType == 'text'" :placeholder="currfield.placeholder"></input>
           <select @change="dataUpdate" v-model="currfield.data" v-if="currfield.dataType == 'selection'">
             <template v-for="option in currfield.options">
               <option v-text="option"></option>

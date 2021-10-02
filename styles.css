@@ -154,8 +154,42 @@ input#menu-input::-ms-input-placeholder {
   position: relative;
 }
 
-#character-picker img {
-  width: 80%;
+#character-picker {
+  height: 100%;
+}
+#character-picker div {
+  max-width: 100%;
+  height: auto;
+  flex-basis: 50%;
+  position: relative;
+}
+#character-picker div img {
+  width: 50%;
   height: auto;
   margin: auto;
+}
+
+.character-active:before {
+  position: absolute;
+  background-image: url(./static/select.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center center;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  content: "";
+}
+
+#character-flavor {
+  width: 90%;
+  font-family: Quicksand, sans-serif;
+  font-size: 1.5rem;
+}
+
+#character-banner {
+  background-image: url(./static/chooseachar.png);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
