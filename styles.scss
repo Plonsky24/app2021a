@@ -46,6 +46,16 @@
   pointer-events: none;
 }
 
+#bg-dummy-char {
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+  z-index:-2;
+  height:100vh;
+  width:100vw;
+  pointer-events: none;
+}
+
 #icon-dummy-main {
   position: absolute;
   //background-image:url(./static/2a.png);
@@ -93,6 +103,7 @@
 .start-button {
   box-sizing: border-box;
   padding: 0 2.5rem;
+  filter:drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
   button{
     background-color: #FBD000;
     color:#e4e4e4;
@@ -134,4 +145,59 @@ input#menu-input {
 
 #menu-input-label {
   font-family: Quicksand, sans-serif;
+}
+
+#choose-char-image {
+  position:absolute;
+  right:5%;
+  top:5%;
+  height:auto;
+  width:50vw;
+}
+
+#character {
+  position:relative;
+}
+
+#character-picker {
+  height:100%;
+  div {
+    max-width:100%;
+    height:auto;
+    flex-basis:50%;
+    position:relative;
+    img {
+      width:50%;
+      height:auto;
+      margin:auto;
+    }
+  }
+}
+
+.character-active {
+  //background-color:red;
+  &:before{
+    position:absolute;
+    background-image:url(./static/select.png);
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-origin:content-box;
+    background-position:center center;
+    z-index:3;
+    height:100%;
+    width:100%;
+    content:"";
+  }
+}
+
+#character-flavor {
+  width:90%;
+  font-family:Quicksand, sans-serif;
+  font-size:1.5rem;
+}
+
+#character-banner {
+  background-image:url(./static/chooseachar.png);
+  background-size:contain;
+  background-repeat:no-repeat;
 }
