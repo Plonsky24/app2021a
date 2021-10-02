@@ -94,10 +94,25 @@
         CharData: {
           label: "Character",
           selected: 0,
-          optionLabel: ["mario", "luigi", "bowser", "peach", "daisy", "yoshi"],
-          optionFlavor: ["A flavor", "B flavor", "C flavor", "D flavor", "E flavor", "F flavor"],
+          optionLabel: ["mario", "luigi", "peach", "bowser", "daisy", "yoshi"],
+          optionFlavor: ["Having been the main star of the show and the whole franchise, Mario represents a natural leader who joins a lot of extracurricular activities and enjoys mingling with a lot of people—used to being in the spotlight.",
+          "A simple and lowkey person. They enjoy spending time on their own but often still have extroverted friends like Mario who they get along with. They are really fun and nice to be with once you get to know them :)",
+          "The pretty/pogi one who gets hundreds of likes on their profile pictures. Mahilig umawra, fashionista, at palaging naka-ootd tuwing may gala.",
+          "Bowser may often be characterized as the villain, but they actually just do what they do to reach their goals. They won’t let anything or anyone stand in the way of them getting what they want. They be goal diggers ;)",
+          "Daisy is either sporty or talented, or both. They are active af and like to practice their skills everyday when they can. They are very passionate in what they love to do.",
+          "Yoshi is the cutest person in the world loved by everyone. You often see them sharing wholesome memes on the timeline or on your GCs. Always asks you how your day was. Most probably like petting and playing with doggos and cattos."],
+          optionFlavor2: ["Extroverted, Bidakid, Stellar, Class officer, BS Org",
+          "Introverted, Independent, Lowkey, Shy",
+          "PRETTY/POGI AF, Fashionable, Active sa Socmed, Muse/Escort ng Class",
+          "Goal-oriented, Ambitious, Maangas, Anak ng Mafia Boss",
+          "Sporty, Talented, Active, Competitive",
+          "Wholesome, Cute, Thoughtful"
+          ],
           get flavor() {
               return this.optionFlavor[this.selected]
+          },
+          get flavor2() {
+            return this.optionFlavor2[this.selected]
           }
         },
         pageNo: 0,
@@ -109,6 +124,7 @@
           if (localStorage.pageNo) {this.pageNo = localStorage.pageNo}
           if (localStorage.dataFields) {this.dataFields = JSON.parse(localStorage.dataFields)}
           if (localStorage.status) {this.status = localStorage.status}
+          if (localStorage.character) {this.CharData.selected = localStorage.character}
           else {this.status = 1; localStorage.status = 1}
         },
         readyNew (){
@@ -151,6 +167,7 @@
         },
         selectCharacter (index) {
           this.CharData.selected = index;
+          localStorage.character = index;
         },
         activeCharacter (index) {
           if (index == this.CharData.selected){
@@ -236,7 +253,8 @@
           class="row-start-1 col-start-4 row-span-2 col-span-5"
         ></div>
         <div id="character-flavor" class="row-start-3 col-start-4 row-span-2 col-span-5">
-          {{ CharData.flavor }}
+          <p>{{ CharData.flavor }}</p><br>
+          <p>Characteristics: {{ CharData.flavor2 }}</p>
         </div>
         <div class="row-span-1 col-span-2 col-start-6 row-start-6 justify-self-center flex flex-row ">
           <div class="self-center font-eras-bold nav-button"><button @click="ready()"><p>SELECT</p></button></div>
