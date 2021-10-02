@@ -72,8 +72,7 @@
   display: block;
   box-sizing: border-box;
   padding: 0 10%;
-  -webkit-clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
-          clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+  clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
 }
 
 #img-welcome {
@@ -84,34 +83,50 @@
   box-sizing: border-box;
   padding: 0 1.5rem;
   filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
+  transition: all 0.2s ease-in-out;
 }
 .nav-button button {
   background-color: #e52521;
   color: #e4e4e4;
   font-size: 2.5rem;
-  transition: all 0.2s ease-in-out;
-  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
 .nav-button button p {
   margin: 0 1.5rem;
+}
+.nav-button:hover {
+  transform: scale(1.1, 1.1);
+}
+.nav-button:active {
+  transform: scale(0.9, 0.9);
+}
+.nav-button:active button {
+  filter: brightness(0.5);
 }
 
 .start-button {
   box-sizing: border-box;
   padding: 0 2.5rem;
   filter: drop-shadow(0px 6px 3px rgba(50, 50, 0, 0.5));
+  transition: all 0.2s ease-in-out;
 }
 .start-button button {
   background-color: #FBD000;
   color: #e4e4e4;
   font-size: 3.5rem;
-  transition: all 0.2s ease-in-out;
-  -webkit-clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-          clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
 }
 .start-button button p {
   margin: 0 2.5rem;
+}
+.start-button:hover {
+  transform: scale(1.1, 1.1);
+}
+.start-button:active {
+  transform: scale(0.9, 0.9);
+}
+.start-button:active button {
+  filter: brightness(0.5);
 }
 
 .menu-item-active p {
@@ -128,22 +143,29 @@ input#menu-input {
 }
 input#menu-input::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: black;
   opacity: 1;
   /* Firefox */
+  color: rgba(0, 0, 0, 0.6);
 }
 input#menu-input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: black;
+  color: rgba(0, 0, 0, 0.6);
 }
 input#menu-input::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: black;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+select {
+  font-family: Quicksand, sans-serif;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid black;
 }
 
 #menu-input-label {
   font-family: Quicksand, sans-serif;
-<<<<<<< HEAD
 }
 
 #choose-char-image {
@@ -161,13 +183,28 @@ input#menu-input::-ms-input-placeholder {
 #character-picker {
   height: 100%;
 }
-#character-picker div {
+
+.character-option {
   max-width: 100%;
   height: auto;
   flex-basis: 50%;
   position: relative;
+  transition: all 0.2s ease-in-out;
 }
-#character-picker div img {
+.character-option:hover:before {
+  position: absolute;
+  background-image: url(./static/select.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  background-position: center center;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  content: "";
+  opacity: 50%;
+}
+.character-option img {
   width: 50%;
   height: auto;
   margin: auto;
@@ -197,6 +234,3 @@ input#menu-input::-ms-input-placeholder {
   background-size: contain;
   background-repeat: no-repeat;
 }
-=======
-}
->>>>>>> main
