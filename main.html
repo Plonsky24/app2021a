@@ -318,7 +318,8 @@
               type="text"
               v-model="currfield.data"
               v-show="currfield.dataType == 'text'"
-              :placeholder="currfield.placeholder"></input>
+              :placeholder="currfield.placeholder"
+              @keyup.enter="next()"></input>
             <select v-model="currfield.data" v-show="currfield.dataType == 'selection'" class="selector">
               <template v-for="option in currfield.options">
                 <option v-text="option"></option>
