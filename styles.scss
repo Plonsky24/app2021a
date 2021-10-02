@@ -145,9 +145,14 @@
   }
 }
 
-input#menu-input {
+.submit-text {
   font-family: Quicksand, sans-serif;
   font-size: 3rem;
+}
+
+input#menu-input {
+  font-family: Quicksand, sans-serif;
+  font-size: 2.5rem;
   background: none;
   border:none;
   border-bottom: 2px solid black;
@@ -165,9 +170,9 @@ input#menu-input {
   }
 }
 
-select {
+.selector {
   font-family: Quicksand, sans-serif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   background: none;
   border:none;
   border-bottom: 2px solid black;
